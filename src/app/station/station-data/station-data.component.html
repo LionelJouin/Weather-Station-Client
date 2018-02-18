@@ -14,9 +14,49 @@
     {{ data | json }}
 </li>
 <br />
-<br /> {{ dataSensor.Pressure | json }}
+koukou
+<br /> {{ dataSensor | json }}
+<br /> {{ lineChartLabels | json }}
 <br />
 <br />
-<div>
+<!-- <div>
     <canvas id="myChart"></canvas>
+</div> -->
+<br />
+DATASENSOR
+<li *ngFor="let sensor of station?.sensors">
+    {{ dataSensor[sensor.name] | json }}
+</li>
+{{ lineChartData | json }}
+<!-- <br />
+<br />
+<br />
+<div style="display: block;" *ngIf="dataSensor.length > 0">
+    koukou
+    <canvas baseChart width="400" height="400" 
+        [datasets]="dataSensor[Temperature]" 
+        [labels]="lineChartLabels" 
+        [options]="lineChartOptions"
+        [colors]="lineChartColors" 
+        [legend]="lineChartLegend" 
+        [chartType]="lineChartType" 
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)">
+    </canvas>
+</div> -->
+
+<div *ngFor="let sensor of station?.sensors">
+    <br />
+    <br />
+    <div style="display: block;" *ngIf="dataSensor[sensor.name] != undefined">
+        <canvas baseChart width="400" height="400"
+        [datasets]="dataSensor[sensor.name]"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="lineChartType">
+        </canvas>
+    </div>
+    
 </div>

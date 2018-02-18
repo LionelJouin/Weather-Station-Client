@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,18 +10,20 @@ import { StationDataComponent } from './station/station-data/station-data.compon
 import { StationService } from './station/shared/services/station.service';
 import { ApiService } from './shared/services/api.service';
 import { WeatherDataService } from './station/shared/services/weather-data.service';
-
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StationListComponent,
-    StationDataComponent
+    StationDataComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     ApiService,

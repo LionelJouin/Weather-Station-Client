@@ -16,9 +16,25 @@ export class StationDataComponent implements OnInit {
 
   station: Station;
   weatherData: WeatherData[];
-  //temperatures: object[];
   dataSensor: object;
   id: string;
+
+  lineChartLabels: any[];
+  public lineChartColors: any[] = [
+    {
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  lineChartOptions: any = {
+    responsive: true
+  };
+  lineChartLegend: boolean = true;
+  lineChartType: string = 'line';
 
   constructor(
     private route: ActivatedRoute,
@@ -30,22 +46,6 @@ export class StationDataComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.dataSensor = {};
     this.getStation();
-
-    var myChart = new Chart("myChart", {
-      type: 'line',
-      data: {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-        datasets: [{
-          label: 'apples',
-          data: [12, 19, 3, 17, 6, 3, 7],
-          backgroundColor: "rgba(153,255,51,0.6)"
-        }, {
-          label: 'oranges',
-          data: [2, 29, 5, 5, 2, 3, 10],
-          backgroundColor: "rgba(255,153,0,0.6)"
-        }]
-      }
-    });
   }
 
   getStation(): void {
@@ -64,16 +64,21 @@ export class StationDataComponent implements OnInit {
   setData(weatherData): void {
     this.weatherData = weatherData;
 
+    this.lineChartLabels = weatherData.map(
+      data => data.createdOn
+    );
+
     for (var i = 0; i < this.station.sensors.length; i++) {
 
-      let data = weatherData.map(
-        data => ({
-          [this.station.sensors[i].name]: data.data[this.station.sensors[i].name],
-          createdOn: data.createdOn,
-          updatedOn: data.updatedOn
-        }));
+      let dataTemp = [{
+        data: [],
+        label: this.station.sensors[i].name
+      }];
+      dataTemp[0].data = weatherData.map(
+        data => data.data[this.station.sensors[i].name]
+      );
 
-      this.dataSensor[this.station.sensors[i].name] = data;
+      this.dataSensor[this.station.sensors[i].name] = dataTemp;
 
     }
   }
