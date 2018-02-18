@@ -1,3 +1,22 @@
-<p>
-  station-data works!
-</p>
+{{ station?.name }}
+<br />
+<br />
+
+<h2>Sensors :</h2>
+<li *ngFor="let sensor of station?.sensors">
+    {{ sensor.name }}
+</li>
+
+<br />
+<br />
+<h2>Data :</h2>
+<li *ngFor="let data of weatherData">
+    {{ data | json }}
+</li>
+<br />
+<br /> {{ dataSensor.Pressure | json }}
+<br />
+<br />
+<div>
+    <canvas id="myChart"></canvas>
+</div>

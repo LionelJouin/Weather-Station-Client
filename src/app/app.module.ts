@@ -9,6 +9,7 @@ import { StationListComponent } from './station/station-list/station-list.compon
 import { StationDataComponent } from './station/station-data/station-data.component';
 import { StationService } from './station/shared/services/station.service';
 import { ApiService } from './shared/services/api.service';
+import { WeatherDataService } from './station/shared/services/weather-data.service';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ApiService } from './shared/services/api.service';
   ],
   providers: [
     ApiService,
-    StationService
+    StationService,
+    WeatherDataService
   ],
   bootstrap: [AppComponent]
 })

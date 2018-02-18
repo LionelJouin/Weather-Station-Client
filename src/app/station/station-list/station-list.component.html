@@ -4,6 +4,8 @@
 
 <ul class="heroes">
   <li *ngFor="let station of stations">
-    {{station.name}}
+    <a routerLink="/station/{{station.id}}">
+      {{station.name}}
+    </a>
   </li>
 </ul>

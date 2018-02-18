@@ -1,6 +1,6 @@
 export class WeatherData {
     id: string;
-    data: object;
+    data: any;
     created: Date;
     modified: Date;
 }
