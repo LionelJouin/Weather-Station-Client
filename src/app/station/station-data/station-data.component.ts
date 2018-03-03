@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StationService } from '../shared/services/station.service';
 import { Station } from '../../shared/models/station';
@@ -6,8 +6,10 @@ import { WeatherDataService } from '../shared/services/weather-data.service';
 import { WeatherData } from '../../shared/models/weather-data';
 import { and } from '@angular/router/src/utils/collection';
 import { Chart } from 'chart.js';
+import { Observable } from 'rxjs/Rx';
 
 import * as moment from 'moment';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-station-data',
@@ -16,8 +18,11 @@ import * as moment from 'moment';
 })
 export class StationDataComponent implements OnInit {
 
-  private numberOfData = 100;
+  private numberOfData = 10;
+  private interval = 5; // interval in seconde
   private timeTemplate = "MM/DD/YYYY h:mm";
+
+  @ViewChildren(BaseChartDirective) charts: QueryList<BaseChartDirective>;
 
   station: Station;
   weatherData: WeatherData[];
@@ -26,7 +31,7 @@ export class StationDataComponent implements OnInit {
   id: string;
 
   lineChartLabels: any[];
-  public lineChartColors: any[] = [
+  lineChartColors: any[] = [
     {
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -62,6 +67,10 @@ export class StationDataComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.dataSensor = {};
     this.getStation();
+
+    Observable.interval(this.interval * 1000).subscribe(x => {
+      this.getLastData();
+    });
   }
 
   getStation(): void {
@@ -77,7 +86,35 @@ export class StationDataComponent implements OnInit {
       .subscribe(weatherData => this.setData(weatherData));
   }
 
-  setData(weatherData): void {
+  getLastData(): void {
+    this.weatherDataService.getLastByStationId(this.id)
+      .subscribe(weatherData => this.addLastData(weatherData));
+  }
+
+  private addLastData(weatherData: WeatherData): void {
+    if (weatherData.updatedOn == this.weatherData.slice(-1)[0].updatedOn)
+      return;
+
+    this.setLastData(weatherData);
+
+    weatherData.data.createdOn = moment(weatherData.data.createdOn).format(this.timeTemplate);
+
+    this.weatherData.push(weatherData);
+    this.weatherData.shift();
+    this.lineChartLabels.push(weatherData.data.createdOn);
+    this.lineChartLabels.shift();
+
+    for (var i = 0; i < this.station.sensors.length; i++) {
+      this.dataSensor[this.station.sensors[i].name][0].data.push(weatherData.data[this.station.sensors[i].name]);
+      this.dataSensor[this.station.sensors[i].name][0].data.shift();
+    }
+
+    this.charts.forEach((child) => {
+      child.chart.update();
+    });
+  }
+
+  private setData(weatherData: WeatherData[]): void {
     this.weatherData = weatherData.sort(this.dateSortAsc);
     this.weatherData.map(x => x.createdOn = moment(x.createdOn).format(this.timeTemplate));
 
@@ -100,18 +137,15 @@ export class StationDataComponent implements OnInit {
     }
   }
 
-  setLastData(weatherData): void {
-    var i = 0;
+  private setLastData(weatherData): void {
     var j = -1;
     var k = 1;
     this.lastWeatherData = [];
-    for (var prop in weatherData.data) {
-      if (!weatherData.data.hasOwnProperty(prop)) continue;
+    for (var i = 0; i < this.station.sensors.length; i++) {
       if (i % 4 == 0) {
-        i = 0;
         j++;
       }
-      if (i == 0)
+      if (i % 4 == 0)
         this.lastWeatherData.push([]);
       if (i % 2 == 0) {
         this.lastWeatherData[j].push([]);
@@ -119,12 +153,17 @@ export class StationDataComponent implements OnInit {
       }
       this.lastWeatherData[j][k].push(
         {
-          data: weatherData.data[prop],
-          type: prop
+          data: weatherData.data[this.station.sensors[i].name],
+          type: this.station.sensors[i].name
         }
       );
-      i++;
     }
+  }
+
+  filterDataSensor() {
+    if (this.station == undefined)
+      return [];
+    return this.station.sensors.filter(x => this.dataSensor[x.name] != undefined)
   }
 
   private dateSortAsc(b, a): number {
@@ -132,11 +171,5 @@ export class StationDataComponent implements OnInit {
     if (new Date(a.createdOn) < new Date(b.createdOn)) return 1;
     return 0;
   };
-
-  filterDataSensor() {
-    if (this.station == undefined)
-      return [];
-    return this.station.sensors.filter(x => this.dataSensor[x.name] != undefined)
-  }
 
 }

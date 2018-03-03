@@ -13,7 +13,13 @@ export class WeatherDataService {
 
   getByStationId(idStation: string, limit: number): Observable<WeatherData[]> {
     return this.apiService.get('/weatherdata?filter[where][stationId]='
-      + idStation + "&filter[limit]=" + limit)
+      + idStation + "&filter[limit]=" + limit + "&filter[order]=createdOn DESC")
+      .pipe(map(data => data));
+  }
+
+  getLastByStationId(idStation: string): Observable<WeatherData> {
+    return this.apiService.get('/weatherdata/findone?filter[where][stationId]='
+      + idStation + "&filter[order]=createdOn DESC")
       .pipe(map(data => data));
   }
 
