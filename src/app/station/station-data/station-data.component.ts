@@ -7,6 +7,8 @@ import { WeatherData } from '../../shared/models/weather-data';
 import { and } from '@angular/router/src/utils/collection';
 import { Chart } from 'chart.js';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-station-data',
   templateUrl: './station-data.component.html',
@@ -16,6 +18,7 @@ export class StationDataComponent implements OnInit {
 
   station: Station;
   weatherData: WeatherData[];
+  lastWeatherData: any[];
   dataSensor: object;
   id: string;
 
@@ -31,9 +34,15 @@ export class StationDataComponent implements OnInit {
     }
   ];
   lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales:
+      {
+        xAxes: [{
+          display: false
+        }]
+      }
   };
-  lineChartLegend: boolean = true;
+  lineChartLegend: boolean = false;
   lineChartType: string = 'line';
 
   constructor(
@@ -62,14 +71,21 @@ export class StationDataComponent implements OnInit {
   }
 
   setData(weatherData): void {
-    this.weatherData = weatherData;
+    this.weatherData = weatherData.sort(this.dateSortAsc);
+    console.log(this.weatherData);
+    // this.weatherData.map(x => x.createdOn = new Date(
+    //   x.createdOn.getDate() + "/" + x.createdOn.getMonth() + "/" + x.createdOn.getFullYear() + " - " + x.createdOn.getHours() + " : " + x.createdOn.getMinutes()
+    // ));
+    //this.weatherData.map(x => x.createdOn = new Date(x.createdOn));
+    this.weatherData.map(x => x.createdOn = moment(x.createdOn).format('MM/DD/YYYY h:mm'));
+    
+    this.setLastData(this.weatherData.slice(-1)[0]);
 
     this.lineChartLabels = weatherData.map(
       data => data.createdOn
     );
 
     for (var i = 0; i < this.station.sensors.length; i++) {
-
       let dataTemp = [{
         data: [],
         label: this.station.sensors[i].name
@@ -79,8 +95,46 @@ export class StationDataComponent implements OnInit {
       );
 
       this.dataSensor[this.station.sensors[i].name] = dataTemp;
-
     }
+  }
+
+  setLastData(weatherData): void {
+    var i = 0;
+    var j = -1;
+    var k = 1;
+    this.lastWeatherData = [];
+    for (var prop in weatherData.data) {
+      if (!weatherData.data.hasOwnProperty(prop)) continue;
+      if (i % 4 == 0) {
+        i = 0;
+        j++;
+      }
+      if (i == 0)
+        this.lastWeatherData.push([]);
+      if (i % 2 == 0) {
+        this.lastWeatherData[j].push([]);
+        k = (k == 0) ? 1 : 0;
+      }
+      this.lastWeatherData[j][k].push(
+        {
+          data: weatherData.data[prop],
+          type: prop
+        }
+      );
+      i++;
+    }
+  }
+
+  private dateSortAsc(b, a): number {
+    if (new Date(a.createdOn) > new Date(b.createdOn)) return -1;
+    if (new Date(a.createdOn) < new Date(b.createdOn)) return 1;
+    return 0;
+  };
+
+  filterDataSensor() {
+    if (this.station == undefined)
+      return [];
+    return this.station.sensors.filter(x => this.dataSensor[x.name] != undefined)
   }
 
 }

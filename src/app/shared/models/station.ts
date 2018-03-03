@@ -6,6 +6,6 @@ export class Station {
     name: string;
     sensors: Sensor[];
     data: WeatherData[];
-    created: Date;
-    modified: Date;
+    createdOn: string;
+    updatedOn: string;
 }
