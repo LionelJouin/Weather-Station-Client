@@ -1,26 +1,8 @@
-<!-- <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center space-around" fxFill style="background:red;width:100%">
+<div fxLayout="row" fxLayoutWrap fxLayoutAlign="center space-around" style="margin-bottom:20px;">
 
-    <div *ngFor="let sensor of station?.sensors">
-        <br />
-        <mat-card *ngIf="dataSensor[sensor.name] != undefined" fxFlex="25">
-            <mat-card-header>
-                <mat-card-title>{{ sensor.name }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <canvas baseChart width="400" height="400" [datasets]="dataSensor[sensor.name]" [labels]="lineChartLabels" [options]="lineChartOptions"
-                    [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType">
-                </canvas>
-            </mat-card-content>
-        </mat-card>
-    </div>
-
-</div> -->
-
-<div fxLayout="row" fxLayoutWrap fxLayoutAlign="center space-around">
-
-    <div *ngFor="let fourArray of lastWeatherData" fxFlex="20" style="margin-top:20px;" fxFlexOffset="2%" fxLayout="column" fxLayoutWrap
-        fxLayoutAlign="start space-around">
-        <div *ngFor="let twoArray of fourArray; let i = index" fxLayout="row" fxFlex="48" fxLayoutAlign="start space-around" style="margin-top:4%"
+    <div *ngFor="let fourArray of lastWeatherData" fxFlex="20" fxFlex.lt-sm="96" fxFlex.md="42" fxFlex.sm="42" style="margin-top:20px;" fxFlexOffset="2%"
+        fxLayout="column" fxLayoutAlign="start space-around">
+        <div *ngFor="let twoArray of fourArray; let i = index" fxLayout="row" fxFlex.gt-md="48" fxFlex.lt-sm="100" fxFlex.sm="44" fxFlex.md="44" fxLayoutAlign="start space-around" style="margin-top:4%"
             [style.margin-top]="i">
             <mat-card *ngFor="let data of twoArray; let j = index" fxFlex="48" style="margin-left:4%" [style.margin-left]="j">
                 <mat-card-header>
@@ -31,23 +13,9 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <!-- <div fxLayout="row" style="margin-top:4%" fxFlex="48" fxLayoutAlign="start space-around">
-            <mat-card *ngFor="let data of fourArray[1]" fxFlex="48">{{ data.type }}</mat-card>
-        </div> -->
     </div>
 
-    <!-- <div *ngFor="let dataArray of lastWeatherData" fxFlex="20" style="margin-top:20px;" fxFlexOffset="2%" fxLayout="column" fxLayoutWrap fxLayoutAlign="start space-around">
-        <div fxLayout="row" fxFlex="48" fxLayoutAlign="start space-around">
-            <mat-card fxFlex="48">koukou</mat-card>
-            <mat-card fxFlex="48" fxFlexOffset="4%">koukou</mat-card>
-        </div>
-        <div fxLayout="row" style="margin-top:4%" fxFlex="48" fxLayoutAlign="start space-around">
-            <mat-card fxFlex="48">koukou</mat-card>
-            <mat-card fxFlex="48" fxFlexOffset="4%">koukou</mat-card>
-        </div>
-    </div> -->
-
-    <mat-card *ngFor="let sensor of filterDataSensor()" fxFlex="20" fxFlexOffset="2%" style="margin-top:20px">
+    <mat-card *ngFor="let sensor of filterDataSensor()" fxFlex="20" fxFlex.lt-sm="96" fxFlex.md="42" fxFlex.sm="42" fxFlexOffset="2%" style="margin-top:20px">
         <mat-card-header>
             <mat-card-title>{{ sensor.name }}</mat-card-title>
         </mat-card-header>
@@ -59,49 +27,3 @@
     </mat-card>
 
 </div>
-
-
-
-{{ station?.name }}
-<br />
-<br />
-
-<h2>Sensors :</h2>
-<li *ngFor="let sensor of station?.sensors">
-    {{ sensor.name }}
-</li>
-
-<br />
-<br />
-<h2>Data :</h2>
-<li *ngFor="let data of weatherData">
-    {{ data | json }}
-</li>
-<br /> koukou
-<br /> {{ dataSensor | json }}
-<br /> {{ lineChartLabels | json }}
-<br />
-<br />
-<!-- <div>
-    <canvas id="myChart"></canvas>
-</div> -->
-<br /> DATASENSOR
-<li *ngFor="let sensor of station?.sensors">
-    {{ dataSensor[sensor.name] | json }}
-</li>
-<!-- <br />
-<br />
-<br />
-<div style="display: block;" *ngIf="dataSensor.length > 0">
-    koukou
-    <canvas baseChart width="400" height="400" 
-        [datasets]="dataSensor[Temperature]" 
-        [labels]="lineChartLabels" 
-        [options]="lineChartOptions"
-        [colors]="lineChartColors" 
-        [legend]="lineChartLegend" 
-        [chartType]="lineChartType" 
-        (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)">
-    </canvas>
-</div> -->

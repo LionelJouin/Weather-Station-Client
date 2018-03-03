@@ -16,6 +16,9 @@ import * as moment from 'moment';
 })
 export class StationDataComponent implements OnInit {
 
+  private numberOfData = 100;
+  private timeTemplate = "MM/DD/YYYY h:mm";
+
   station: Station;
   weatherData: WeatherData[];
   lastWeatherData: any[];
@@ -40,7 +43,11 @@ export class StationDataComponent implements OnInit {
         xAxes: [{
           display: false
         }]
-      }
+      },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    }
   };
   lineChartLegend: boolean = false;
   lineChartType: string = 'line';
@@ -61,7 +68,7 @@ export class StationDataComponent implements OnInit {
     this.stationService.getById(this.id)
       .subscribe(stations => (
         this.station = stations,
-        this.getData(10)
+        this.getData(this.numberOfData)
       ));
   }
 
@@ -72,13 +79,8 @@ export class StationDataComponent implements OnInit {
 
   setData(weatherData): void {
     this.weatherData = weatherData.sort(this.dateSortAsc);
-    console.log(this.weatherData);
-    // this.weatherData.map(x => x.createdOn = new Date(
-    //   x.createdOn.getDate() + "/" + x.createdOn.getMonth() + "/" + x.createdOn.getFullYear() + " - " + x.createdOn.getHours() + " : " + x.createdOn.getMinutes()
-    // ));
-    //this.weatherData.map(x => x.createdOn = new Date(x.createdOn));
-    this.weatherData.map(x => x.createdOn = moment(x.createdOn).format('MM/DD/YYYY h:mm'));
-    
+    this.weatherData.map(x => x.createdOn = moment(x.createdOn).format(this.timeTemplate));
+
     this.setLastData(this.weatherData.slice(-1)[0]);
 
     this.lineChartLabels = weatherData.map(

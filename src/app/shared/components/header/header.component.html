@@ -1,4 +1,9 @@
 <mat-toolbar>
-  <span>Weather-Station</span>
-  <button mat-button (click)="sidenav.toggle()">koukou</button>
+  <div fxShow fxHide.lt-md="true" fxHide.gt-sm="false">
+    <span>Weather-Station</span>
+    <button mat-button routerLink="">Home</button>
+  </div>
+  <button mat-icon-button fxShow fxHide.lt-md="false" fxHide.gt-sm="true" (click)="sidenav.toggle()">
+    <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
+  </button>
 </mat-toolbar>
