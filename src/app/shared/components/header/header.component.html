@@ -1,9 +1,32 @@
 <mat-toolbar>
-  <div fxShow fxHide.lt-md="true" fxHide.gt-sm="false">
+  <mat-toolbar-row>
+    <button mat-icon-button fxShow fxHide.lt-md="false" fxHide.gt-sm="true" (click)="sidenav.toggle()">
+      <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
+    </button>
     <span>Weather-Station</span>
-    <button mat-button routerLink="">Home</button>
-  </div>
-  <button mat-icon-button fxShow fxHide.lt-md="false" fxHide.gt-sm="true" (click)="sidenav.toggle()">
-    <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
-  </button>
+    <div fxShow fxHide.lt-md="true" fxHide.gt-sm="false">
+      <button mat-button routerLink="">Home</button>
+      <button mat-button routerLink="">Sensors</button>
+    </div>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" fxHide.lt-md="true" fxHide.gt-sm="false">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a href="https://github.com/LionelJouin/Weather-Station" target="_blank" style="text-decoration: none">
+        <button mat-menu-item>
+          <mat-icon>cloud</mat-icon>
+          <span>Github Server</span>
+        </button>
+      </a>
+      <a href="https://github.com/LionelJouin/Weather-Station-Client" target="_blank" style="text-decoration: none">
+        <button mat-menu-item>
+          <mat-icon>computer</mat-icon>
+          <span>Github Client</span>
+        </button>
+      </a>
+    </mat-menu>
+  </mat-toolbar-row>
 </mat-toolbar>

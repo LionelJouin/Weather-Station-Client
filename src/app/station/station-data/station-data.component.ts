@@ -28,6 +28,7 @@ export class StationDataComponent implements OnInit {
   weatherData: WeatherData[];
   lastWeatherData: any[];
   dataSensor: object;
+  lastUpdate: string;
   id: string;
 
   lineChartLabels: any[];
@@ -95,18 +96,25 @@ export class StationDataComponent implements OnInit {
     if (weatherData.updatedOn == this.weatherData.slice(-1)[0].updatedOn)
       return;
 
+    var shift = true;
+    if (this.weatherData.length < this.numberOfData)
+      shift = false;
+
+    weatherData.createdOn = moment(weatherData.createdOn).format(this.timeTemplate);
+
     this.setLastData(weatherData);
 
-    weatherData.data.createdOn = moment(weatherData.data.createdOn).format(this.timeTemplate);
-
     this.weatherData.push(weatherData);
-    this.weatherData.shift();
-    this.lineChartLabels.push(weatherData.data.createdOn);
-    this.lineChartLabels.shift();
+    if (shift)
+      this.weatherData.shift();
+    this.lineChartLabels.push(weatherData.createdOn);
+    if (shift)
+      this.lineChartLabels.shift();
 
     for (var i = 0; i < this.station.sensors.length; i++) {
       this.dataSensor[this.station.sensors[i].name][0].data.push(weatherData.data[this.station.sensors[i].name]);
-      this.dataSensor[this.station.sensors[i].name][0].data.shift();
+      if (shift)
+        this.dataSensor[this.station.sensors[i].name][0].data.shift();
     }
 
     this.charts.forEach((child) => {
@@ -115,6 +123,8 @@ export class StationDataComponent implements OnInit {
   }
 
   private setData(weatherData: WeatherData[]): void {
+    if (weatherData.length == 0)
+      return;
     this.weatherData = weatherData.sort(this.dateSortAsc);
     this.weatherData.map(x => x.createdOn = moment(x.createdOn).format(this.timeTemplate));
 
@@ -138,6 +148,7 @@ export class StationDataComponent implements OnInit {
   }
 
   private setLastData(weatherData): void {
+    this.lastUpdate = weatherData.createdOn;
     var j = -1;
     var k = 1;
     this.lastWeatherData = [];
@@ -154,7 +165,8 @@ export class StationDataComponent implements OnInit {
       this.lastWeatherData[j][k].push(
         {
           data: weatherData.data[this.station.sensors[i].name],
-          type: this.station.sensors[i].name
+          type: this.station.sensors[i].name,
+          unit: this.station.sensors[i].unit
         }
       );
     }
