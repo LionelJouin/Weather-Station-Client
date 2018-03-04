@@ -1,0 +1,40 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title class="margin-zero">
+        <h1 class="margin-zero">Sensors</h1>
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  
+  <div fxLayout="row" fxLayoutAlign="center stretch">
+    <div fxLayout="column" fxFlex="66">
+      <mat-card fxFlexOffset="1">
+        <mat-card-content fxLayout="column">
+  
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="75" fxLayout="row" fxLayoutAlign="start center">
+              <form class="example-form" fxFlex="100">
+                <mat-form-field fxFlex="100">
+                  <input matInput placeholder="Search">
+                </mat-form-field>
+              </form>
+              <button mat-icon-button>
+                <mat-icon aria-label="icon-button">search</mat-icon>
+              </button>
+            </div>
+  
+            <div fxFlex="25" fxLayout="row" fxLayoutAlign="end center">
+              <button mat-icon-button (click)="openSensorCreateDialog()">
+                <mat-icon aria-label="icon-button">add</mat-icon>
+              </button>
+            </div>
+          </div>
+  
+          <button *ngFor="let sensor of sensors" mat-button fxFlex="100">
+            <h2 class="margin-zero">{{ sensor.name }}</h2>
+          </button>
+  
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

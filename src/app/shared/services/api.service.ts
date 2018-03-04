@@ -9,7 +9,11 @@ import { catchError } from 'rxjs/operators/catchError';
 @Injectable()
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  private headers: HttpHeaders;
+
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  }
 
   private formatErrors(error: any) {
     return new ErrorObservable(error.json());
@@ -23,20 +27,23 @@ export class ApiService {
   put(path: string, body: Object = {}): Observable<any> {
     return this.http.put(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      { headers: this.headers }
     ).pipe(catchError(this.formatErrors));
   }
 
   post(path: string, body: Object = {}): Observable<any> {
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body),
+      { headers: this.headers }
     ).pipe(catchError(this.formatErrors));
   }
 
   delete(path): Observable<any> {
     return this.http.delete(
-      `${environment.api_url}${path}`
+      `${environment.api_url}${path}`,
+      { headers: this.headers }
     ).pipe(catchError(this.formatErrors));
   }
 

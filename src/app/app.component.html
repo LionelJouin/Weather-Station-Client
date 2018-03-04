@@ -1,6 +1,23 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav [mode]="over">
-        <button (click)="sidenav.toggle()"></button>
+    <mat-sidenav #sidenav [mode]="over" [fixedInViewport]="true" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <button mat-button routerLink="" (click)="sidenav.toggle()">Home</button>
+            <button mat-button routerLink="sensors" (click)="sidenav.toggle()">Sensors</button>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="end stretch">
+            <a href="https://github.com/LionelJouin/Weather-Station" target="_blank" style="text-decoration: none">
+                <button mat-menu-item>
+                    <mat-icon>cloud</mat-icon>
+                    <span>Github Server</span>
+                </button>
+            </a>
+            <a href="https://github.com/LionelJouin/Weather-Station-Client" target="_blank" style="text-decoration: none">
+                <button mat-menu-item>
+                    <mat-icon>computer</mat-icon>
+                    <span>Github Client</span>
+                </button>
+            </a>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-header [sidenav]=sidenav></app-header>

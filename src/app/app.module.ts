@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CdkTableModule} from '@angular/cdk/table';
+import { CdkTableModule } from '@angular/cdk/table';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -48,13 +48,25 @@ import { StationService } from './station/shared/services/station.service';
 import { ApiService } from './shared/services/api.service';
 import { WeatherDataService } from './station/shared/services/weather-data.service';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { StationCreateDialogComponent } from './station/station-create-dialog/station-create-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { SensorService } from './sensor/shared/services/sensor.service';
+import { SensorListComponent } from './sensor/sensor-list/sensor-list.component';
+import { SensorCreateDialogComponent } from './sensor/sensor-create-dialog/sensor-create-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StationListComponent,
     StationDataComponent,
-    HeaderComponent
+    HeaderComponent,
+    StationCreateDialogComponent,
+    SensorListComponent,
+    SensorCreateDialogComponent
+  ],
+  entryComponents: [
+    StationCreateDialogComponent,
+    SensorCreateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,12 +106,14 @@ import { HeaderComponent } from './shared/components/header/header.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [
     ApiService,
     StationService,
-    WeatherDataService
+    WeatherDataService,
+    SensorService
   ],
   bootstrap: [AppComponent]
 })

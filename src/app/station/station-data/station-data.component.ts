@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Rx';
 
 import * as moment from 'moment';
 import { BaseChartDirective } from 'ng2-charts';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-station-data',
@@ -21,6 +22,8 @@ export class StationDataComponent implements OnInit {
   private numberOfData = 10;
   private interval = 5; // interval in seconde
   private timeTemplate = "MM/DD/YYYY h:mm";
+
+  private subscription: Subscription;
 
   @ViewChildren(BaseChartDirective) charts: QueryList<BaseChartDirective>;
 
@@ -69,30 +72,48 @@ export class StationDataComponent implements OnInit {
     this.dataSensor = {};
     this.getStation();
 
-    Observable.interval(this.interval * 1000).subscribe(x => {
+    this.subscription = Observable.interval(this.interval * 1000).subscribe(x => {
       this.getLastData();
     });
   }
 
+  ngOnDestroy() {
+    if (this.subscription != null)
+      this.subscription.unsubscribe();
+  }
+
   getStation(): void {
     this.stationService.getById(this.id)
-      .subscribe(stations => (
-        this.station = stations,
-        this.getData(this.numberOfData)
-      ));
+      .subscribe(
+        stations => (
+          this.station = stations,
+          this.getData(this.numberOfData)
+        ),
+        error => error
+      );
   }
 
   getData(limit: number): void {
     this.weatherDataService.getByStationId(this.id, limit)
-      .subscribe(weatherData => this.setData(weatherData));
+      .subscribe(
+        weatherData => this.setData(weatherData),
+        error => error
+      );
   }
 
   getLastData(): void {
     this.weatherDataService.getLastByStationId(this.id)
-      .subscribe(weatherData => this.addLastData(weatherData));
+      .subscribe(
+        weatherData => this.addLastData(weatherData),
+        error => error
+      );
   }
 
   private addLastData(weatherData: WeatherData): void {
+    if (this.weatherData == undefined || this.weatherData.length == 0) {
+      location.reload();
+      return;
+    }
     if (weatherData.updatedOn == this.weatherData.slice(-1)[0].updatedOn)
       return;
 
