@@ -2,24 +2,20 @@
   "name": "weather-station-client",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "server.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "npm run build"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.6",
     "@angular/cdk": "^5.2.2",
-    "@angular/cli": "1.6.7",
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
-    "@angular/compiler-cli": "^5.2.0",
     "@angular/core": "^5.2.0",
     "@angular/flex-layout": "^2.0.0-beta.12",
     "@angular/forms": "^5.2.0",
@@ -38,6 +34,8 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "^5.2.0",
+    "@angular/cli": "1.6.7",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
