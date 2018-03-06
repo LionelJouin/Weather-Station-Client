@@ -29,10 +29,22 @@
             </button>
           </div>
         </div>
-
-        <button *ngFor="let station of stations" mat-button fxFlex="100" routerLink="/station/{{station.id}}">
-          <h2 class="margin-zero">{{ station.name }}</h2>
-        </button>
+        
+        <mat-list fxFlex="100">
+          <mat-list-item *ngFor="let station of stations">
+            <h3>{{ station.name }}</h3>
+            <span class="spacer"></span>
+            <button mat-icon-button routerLink="/station/{{station.id}}">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <button mat-icon-button (click)="openStationCreateDialog(station)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
 
       </mat-card-content>
     </mat-card>

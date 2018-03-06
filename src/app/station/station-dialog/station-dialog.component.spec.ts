@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SensorCreateDialogComponent } from './sensor-create-dialog.component';
+import { StationDialogComponent } from './station-dialog.component';
 
-describe('SensorCreateDialogComponent', () => {
-  let component: SensorCreateDialogComponent;
-  let fixture: ComponentFixture<SensorCreateDialogComponent>;
+describe('StationDialogComponent', () => {
+  let component: StationDialogComponent;
+  let fixture: ComponentFixture<StationDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SensorCreateDialogComponent ]
+      declarations: [ StationDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SensorCreateDialogComponent);
+    fixture = TestBed.createComponent(StationDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

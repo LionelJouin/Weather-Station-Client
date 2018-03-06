@@ -48,11 +48,11 @@ import { StationService } from './station/shared/services/station.service';
 import { ApiService } from './shared/services/api.service';
 import { WeatherDataService } from './station/shared/services/weather-data.service';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { StationCreateDialogComponent } from './station/station-create-dialog/station-create-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { SensorService } from './sensor/shared/services/sensor.service';
 import { SensorListComponent } from './sensor/sensor-list/sensor-list.component';
-import { SensorCreateDialogComponent } from './sensor/sensor-create-dialog/sensor-create-dialog.component';
+import { StationDialogComponent } from './station/station-dialog/station-dialog.component';
+import { SensorDialogComponent } from './sensor/sensor-dialog/sensor-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,13 +60,13 @@ import { SensorCreateDialogComponent } from './sensor/sensor-create-dialog/senso
     StationListComponent,
     StationDataComponent,
     HeaderComponent,
-    StationCreateDialogComponent,
     SensorListComponent,
-    SensorCreateDialogComponent
+    SensorDialogComponent,
+    StationDialogComponent
   ],
   entryComponents: [
-    StationCreateDialogComponent,
-    SensorCreateDialogComponent
+    SensorDialogComponent,
+    StationDialogComponent
   ],
   imports: [
     BrowserModule,

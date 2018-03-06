@@ -85,10 +85,10 @@ export class StationDataComponent implements OnInit {
   getStation(): void {
     this.stationService.getById(this.id)
       .subscribe(
-        stations => (
-          this.station = stations,
+        stations => {
+          this.station = stations;
           this.getData(this.numberOfData)
-        ),
+        },
         error => error
       );
   }

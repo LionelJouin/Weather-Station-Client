@@ -1,0 +1,22 @@
+<h1 mat-dialog-title *ngIf="!update">Create station</h1>
+<h1 mat-dialog-title *ngIf="update">Update station</h1>
+<form (ngSubmit)="submit()" id="formStation">
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+      <input matInput [(ngModel)]="weatherStation.name" placeholder="Name" name="name" required/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [(value)]="weatherStation.sensors" placeholder="Sensors" name="sensors" multiple>
+        <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{ sensor.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions *ngIf="busy">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+<div mat-dialog-actions *ngIf="!busy">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button cdkFocusInitial type="submit" form="formStation" *ngIf="!update">Create</button>
+  <button mat-button cdkFocusInitial type="submit" form="formStation" *ngIf="update">Update</button>
+</div>

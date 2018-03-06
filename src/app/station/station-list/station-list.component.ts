@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { StationService } from '../shared/services/station.service';
 import { Station } from '../../shared/models/station';
-import { StationCreateDialogComponent } from '../station-create-dialog/station-create-dialog.component';
+import { StationDialogComponent } from '../station-dialog/station-dialog.component';
 
 
 @Component({
@@ -28,9 +28,10 @@ export class StationListComponent implements OnInit {
       .subscribe(stations => this.stations = stations);
   }
 
-  openStationCreateDialog(): void {
-    let dialogRef = this.dialog.open(StationCreateDialogComponent, {
+  openStationCreateDialog(weatherStation: Station): void {
+    let dialogRef = this.dialog.open(StationDialogComponent, {
       width: '400px',
+      data: { weatherStation }
     });
 
     dialogRef.afterClosed().subscribe(result => {

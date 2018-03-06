@@ -22,4 +22,10 @@ export class SensorService {
       .pipe(map(data => data));
   }
 
+  update(sensor: Sensor): Observable<Sensor> {
+    return this.apiService.put('/sensor/', sensor)
+      .pipe(map(data => data));
+  }
+
+
 }

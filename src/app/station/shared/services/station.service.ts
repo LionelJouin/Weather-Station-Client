@@ -27,6 +27,11 @@ export class StationService {
       .pipe(map(data => data));
   }
 
+  update(weatherStation: Station): Observable<Station> {
+    return this.apiService.put('/station/', weatherStation)
+      .pipe(map(data => data));
+  }
+
   addSensor(id: string, idSensor: string): Observable<Station> {
     return this.apiService.put('/station/' + id + '/sensors/rel/' + idSensor)
       .pipe(map(data => data));

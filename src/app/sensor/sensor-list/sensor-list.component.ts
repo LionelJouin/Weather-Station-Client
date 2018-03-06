@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Sensor } from '../../shared/models/sensor';
 import { SensorService } from '../shared/services/sensor.service';
 import { MatDialog } from '@angular/material';
-import { SensorCreateDialogComponent } from '../sensor-create-dialog/sensor-create-dialog.component';
+import { SensorDialogComponent } from '../sensor-dialog/sensor-dialog.component';
 
 @Component({
   selector: 'app-sensor-list',
@@ -27,9 +27,10 @@ export class SensorListComponent implements OnInit {
       .subscribe(sensors => this.sensors = sensors);
   }
 
-  openSensorCreateDialog(): void {
-    let dialogRef = this.dialog.open(SensorCreateDialogComponent, {
+  openSensorCreateDialog(sensor: Sensor): void {
+    let dialogRef = this.dialog.open(SensorDialogComponent, {
       width: '400px',
+      data: { sensor }
     });
 
     dialogRef.afterClosed().subscribe(result => {

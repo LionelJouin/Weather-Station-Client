@@ -29,10 +29,19 @@
               </button>
             </div>
           </div>
-  
-          <button *ngFor="let sensor of sensors" mat-button fxFlex="100">
-            <h2 class="margin-zero">{{ sensor.name }}</h2>
-          </button>
+
+          <mat-list fxFlex="100">
+            <mat-list-item *ngFor="let sensor of sensors">
+              <h3>{{ sensor.name }}</h3>
+              <span class="spacer"></span>
+              <button mat-icon-button (click)="openSensorCreateDialog(sensor)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-list-item>
+          </mat-list>
   
         </mat-card-content>
       </mat-card>

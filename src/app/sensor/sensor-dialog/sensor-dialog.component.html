@@ -1,0 +1,20 @@
+<h1 mat-dialog-title *ngIf="!update">Create sensor</h1>
+<h1 mat-dialog-title *ngIf="update">Update sensor</h1>
+<form (ngSubmit)="submit()" id="formSensor">
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+      <input matInput [(ngModel)]="sensor.name" placeholder="Name" name="name" required/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="sensor.unit" placeholder="Unit" name="unit" required/>
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions *ngIf="busy">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+<div mat-dialog-actions *ngIf="!busy">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button cdkFocusInitial type="submit" form="formSensor" *ngIf="!update">Create</button>
+  <button mat-button cdkFocusInitial type="submit" form="formSensor" *ngIf="update">Update</button>
+</div>
