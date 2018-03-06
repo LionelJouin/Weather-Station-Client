@@ -28,7 +28,7 @@ export class StationListComponent implements OnInit {
       .subscribe(stations => this.stations = stations);
   }
 
-  openStationCreateDialog(weatherStation: Station): void {
+  openStationCreateDialog(weatherStation?: Station): void {
     let dialogRef = this.dialog.open(StationDialogComponent, {
       width: '400px',
       data: { weatherStation }

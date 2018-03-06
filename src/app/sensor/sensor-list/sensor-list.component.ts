@@ -27,7 +27,7 @@ export class SensorListComponent implements OnInit {
       .subscribe(sensors => this.sensors = sensors);
   }
 
-  openSensorCreateDialog(sensor: Sensor): void {
+  openSensorCreateDialog(sensor?: Sensor): void {
     let dialogRef = this.dialog.open(SensorDialogComponent, {
       width: '400px',
       data: { sensor }
