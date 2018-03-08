@@ -13,6 +13,7 @@ import { SensorRemoveDialogComponent } from '../sensor-remove-dialog/sensor-remo
 export class SensorListComponent implements OnInit {
 
   sensors: Sensor[];
+  sensorSearch: string;
 
   constructor(
     private sensorService: SensorService,
@@ -20,6 +21,7 @@ export class SensorListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.sensorSearch = "";
     this.getAllSensors();
   }
 
@@ -49,5 +51,12 @@ export class SensorListComponent implements OnInit {
       this.getAllSensors();
     });
   }
+
+  filterSensors(sensors: Sensor[]): Sensor[] {
+    if (sensors == undefined)
+      return [];
+    return sensors.filter(x => x.name.toLowerCase().includes(this.sensorSearch.toLowerCase()));
+  }
+
 
 }

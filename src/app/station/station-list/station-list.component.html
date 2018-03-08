@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title class="margin-zero">
-      <h1 class="margin-zero">Home</h1>
+      <h1 class="margin-zero">Stations</h1>
     </mat-card-title>
   </mat-card-header>
 </mat-card>
@@ -15,7 +15,7 @@
           <div fxFlex="75" fxLayout="row" fxLayoutAlign="start center">
             <form class="example-form" fxFlex="100">
               <mat-form-field fxFlex="100">
-                <input matInput placeholder="Search">
+                <input matInput [(ngModel)]="stationSearch" name="stationSearch" placeholder="Search">
               </mat-form-field>
             </form>
             <button mat-icon-button>
@@ -31,7 +31,7 @@
         </div>
         
         <mat-list fxFlex="100">
-          <mat-list-item *ngFor="let station of stations">
+          <mat-list-item *ngFor="let station of filterStations(stations)">
             <h3>{{ station.name }}</h3>
             <span class="spacer"></span>
             <button mat-icon-button routerLink="/station/{{station.id}}">

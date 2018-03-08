@@ -80,6 +80,8 @@ export class StationDialogComponent implements OnInit {
   }
 
   private addRelationsStationSensor(id: string) {
+    if (this.weatherStation.sensors == undefined)
+      return;
     for (var i = 0; i < this.weatherStation.sensors.length; i++) {
       this.stationService.addSensor(id, this.weatherStation.sensors[i].id)
         .subscribe(
@@ -93,12 +95,16 @@ export class StationDialogComponent implements OnInit {
       .subscribe(
         station => {
           this.updateRelationsStationSensor();
-          this.dialogRef.close();
           this.busy = false;
+          this.dialogRef.close();
         });
   }
 
   private updateRelationsStationSensor() {
+    if (this.weatherStation.sensors == undefined)
+      this.weatherStation.sensors = [];
+    if (this.data.weatherStation.sensors == undefined)
+      this.data.weatherStation.sensors = [];
     var toAdd = this.weatherStation.sensors.filter(x => !this.data.weatherStation.sensors.find(y => y.id == x.id));
     var toRemove = this.data.weatherStation.sensors.filter(x => !this.weatherStation.sensors.find(y => y.id == x.id));
 

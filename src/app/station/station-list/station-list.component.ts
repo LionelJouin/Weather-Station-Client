@@ -14,6 +14,7 @@ import { StationRemoveDialogComponent } from '../station-remove-dialog/station-r
 export class StationListComponent implements OnInit {
 
   stations: Station[];
+  stationSearch: string;
 
   constructor(
     private stationService: StationService,
@@ -21,6 +22,7 @@ export class StationListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.stationSearch = "";
     this.getAllStations();
   }
 
@@ -49,6 +51,12 @@ export class StationListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getAllStations();
     });
+  }
+
+  filterStations(stations: Station[]): Station[] {
+    if (stations == undefined)
+      return [];
+    return stations.filter(x => x.name.toLowerCase().includes(this.stationSearch.toLowerCase()));
   }
 
 }

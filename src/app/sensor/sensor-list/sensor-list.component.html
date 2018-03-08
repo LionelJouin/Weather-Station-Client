@@ -15,7 +15,7 @@
             <div fxFlex="75" fxLayout="row" fxLayoutAlign="start center">
               <form class="example-form" fxFlex="100">
                 <mat-form-field fxFlex="100">
-                  <input matInput placeholder="Search">
+                  <input matInput [(ngModel)]="sensorSearch" name="sensorSearch" placeholder="Search">
                 </mat-form-field>
               </form>
               <button mat-icon-button>
@@ -31,7 +31,7 @@
           </div>
 
           <mat-list fxFlex="100">
-            <mat-list-item *ngFor="let sensor of sensors">
+            <mat-list-item *ngFor="let sensor of filterSensors(sensors)">
               <h3>{{ sensor.name }}</h3>
               <span class="spacer"></span>
               <button mat-icon-button (click)="openSensorCreateDialog(sensor)">
