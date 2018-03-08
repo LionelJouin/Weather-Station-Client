@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Remove station</h1>
+<form (ngSubmit)="submit()" id="formStationRemove">
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+      <input matInput [(ngModel)]="stationName" placeholder="Station name" name="name" [formControl]="stationNameFormControl" required/>
+      <mat-error *ngIf="stationNameFormControl.invalid">Invalid station name</mat-error>
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions *ngIf="busy">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+<div mat-dialog-actions *ngIf="!busy">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button cdkFocusInitial type="submit" form="formStationRemove">Remove</button>
+</div>

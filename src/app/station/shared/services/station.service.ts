@@ -32,6 +32,11 @@ export class StationService {
       .pipe(map(data => data));
   }
 
+  remove(id: string): Observable<Station> {
+    return this.apiService.delete('/station/' + id)
+      .pipe(map(data => data));
+  }
+
   addSensor(id: string, idSensor: string): Observable<Station> {
     return this.apiService.put('/station/' + id + '/sensors/rel/' + idSensor)
       .pipe(map(data => data));

@@ -48,11 +48,13 @@ import { StationService } from './station/shared/services/station.service';
 import { ApiService } from './shared/services/api.service';
 import { WeatherDataService } from './station/shared/services/weather-data.service';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SensorService } from './sensor/shared/services/sensor.service';
 import { SensorListComponent } from './sensor/sensor-list/sensor-list.component';
 import { StationDialogComponent } from './station/station-dialog/station-dialog.component';
 import { SensorDialogComponent } from './sensor/sensor-dialog/sensor-dialog.component';
+import { StationRemoveDialogComponent } from './station/station-remove-dialog/station-remove-dialog.component';
+import { SensorRemoveDialogComponent } from './sensor/sensor-remove-dialog/sensor-remove-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +64,15 @@ import { SensorDialogComponent } from './sensor/sensor-dialog/sensor-dialog.comp
     HeaderComponent,
     SensorListComponent,
     SensorDialogComponent,
-    StationDialogComponent
+    StationDialogComponent,
+    StationRemoveDialogComponent,
+    SensorRemoveDialogComponent
   ],
   entryComponents: [
     SensorDialogComponent,
-    StationDialogComponent
+    StationDialogComponent,
+    StationRemoveDialogComponent,
+    SensorRemoveDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -107,7 +113,8 @@ import { SensorDialogComponent } from './sensor/sensor-dialog/sensor-dialog.comp
     MatToolbarModule,
     MatTooltipModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiService,

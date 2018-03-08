@@ -14,9 +14,9 @@ export class SensorService {
 
   getAll(): Observable<Sensor[]> {
     return this.apiService.get('/sensor')
-    .pipe(map(data => data));
+      .pipe(map(data => data));
   }
-  
+
   create(sensor: Sensor): Observable<Sensor> {
     return this.apiService.post('/sensor/', sensor)
       .pipe(map(data => data));
@@ -27,5 +27,9 @@ export class SensorService {
       .pipe(map(data => data));
   }
 
+  remove(id: string): Observable<any> {
+    return this.apiService.delete('/sensor/' + id)
+      .pipe(map(data => data));
+  }
 
 }

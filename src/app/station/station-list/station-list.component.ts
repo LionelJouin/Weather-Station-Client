@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { StationService } from '../shared/services/station.service';
 import { Station } from '../../shared/models/station';
 import { StationDialogComponent } from '../station-dialog/station-dialog.component';
+import { StationRemoveDialogComponent } from '../station-remove-dialog/station-remove-dialog.component';
 
 
 @Component({
@@ -30,6 +31,17 @@ export class StationListComponent implements OnInit {
 
   openStationCreateDialog(weatherStation?: Station): void {
     let dialogRef = this.dialog.open(StationDialogComponent, {
+      width: '400px',
+      data: { weatherStation }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllStations();
+    });
+  }
+
+  openStationRemoveDialog(weatherStation?: Station): void {
+    let dialogRef = this.dialog.open(StationRemoveDialogComponent, {
       width: '400px',
       data: { weatherStation }
     });

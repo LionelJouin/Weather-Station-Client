@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Remove sensor</h1>
+<form (ngSubmit)="submit()" id="formSensorRemove">
+  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-around stretch">
+    <mat-form-field>
+      <input matInput [(ngModel)]="sensorName" placeholder="Sensor name" name="name" [formControl]="sensorNameFormControl" required/>
+      <mat-error *ngIf="sensorNameFormControl.invalid">Invalid sensor name</mat-error>
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions *ngIf="busy">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+<div mat-dialog-actions *ngIf="!busy">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button cdkFocusInitial type="submit" form="formSensorRemove">Remove</button>
+</div>
