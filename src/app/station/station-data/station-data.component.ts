@@ -1,3 +1,5 @@
+
+import {interval as observableInterval,  Subscription } from 'rxjs';
 import { Component, OnInit, ViewChild, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StationService } from '../shared/services/station.service';
@@ -10,7 +12,6 @@ import { Observable } from 'rxjs/Rx';
 
 import * as moment from 'moment';
 import { BaseChartDirective } from 'ng2-charts';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-station-data',
@@ -72,7 +73,7 @@ export class StationDataComponent implements OnInit {
     this.dataSensor = {};
     this.getStation();
 
-    this.subscription = Observable.interval(this.interval * 1000).subscribe(x => {
+    this.subscription = observableInterval(this.interval * 1000).subscribe(x => {
       this.getLastData();
     });
   }
