@@ -1,30 +1,30 @@
-# WeatherStationClient
+# Weather-Station-Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+Weather-station front-end made with Angular. This app allows you to monitor weather data, create/modify/remove weather-station and sensor.
 
-## Development server
+Backend (Loopback) and hardware (Arduino) of this project are on [this repository](https://github.com/LionelJouin/Weather-Station)  and the deployed website with one connected weather-station can be found [here](https://weather-station-client.azurewebsites.net/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Master branch of this project is automatically deployed on an Azure WebApp thanks to [Team Foundation Server](https://app.vsaex.visualstudio.com).
 
-## Code scaffolding
+## Requirements
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Node
+* Angular 6
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```
+npm install
+npm start
+```
 
-## Running unit tests
+## Screenshot
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![Weather-Station-Client](https://i.imgur.com/7NVCO1P.png)
+![Weather-Station-Client](https://i.imgur.com/dR1lcA7.png)
+![Weather-Station-Client](https://i.imgur.com/nUG7JiZ.png)
+![Weather-Station-Client](https://i.imgur.com/uST8VEc.png)
+![Weather-Station-Client](https://i.imgur.com/7EOgKKK.png)
 
 ## Authors
 
